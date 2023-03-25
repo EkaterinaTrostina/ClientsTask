@@ -1,0 +1,12 @@
+<p-inputNumber
+    [formControl]="inputControl"
+    [min]="min"
+    [minFractionDigits]="minFractionDigits"
+    [maxFractionDigits]="maxFractionDigits"
+    [currency]="currency"
+    [allowEmpty]="allowEmpty"
+    mode="currency"
+    locale="ru-RU"
+    placeholder="1 000 000.00"
+    (onInput)="change($event.value)"
+></p-inputNumber>

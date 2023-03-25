@@ -1,0 +1,83 @@
+<section>
+    <div class="container flex justify-content-center">
+        <p-progressSpinner *ngIf="!client"></p-progressSpinner>
+        <p-card
+            *ngIf="client"
+            class="mb-4 block"
+            [header]="client.name"
+            [subheader]="'ИНН: ' + client.inn"
+            styleClass="shadow-2"
+        >
+            <div class="flex flex-column gap-3 mb-4">
+                <div class="flex gap-2 align-items-center">
+                    <span>Дата открытия счета:</span>
+                    <span>
+                        {{
+                            client.openAt | amDateFormat : "DD MMMM YYYY"
+                        }}</span
+                    >
+                </div>
+                <div class="flex gap-2 align-items-center">
+                    <span>Баланс:</span>
+                    <span> {{ client.balance | number }}</span>
+                </div>
+                <div class="flex gap-2 align-items-center">
+                    <span>Телефон:</span>
+
+                    <ng-container *ngIf="!isShowEditPhoneForm">
+                        <span>{{ client.phone }}</span>
+                        <button
+                            pButton
+                            pRipple
+                            type="button"
+                            icon="pi pi-pencil"
+                            class="client__info-btn p-button-rounded p-button-text"
+                            (click)="togglePhoneForm()"
+                        ></button>
+                    </ng-container>
+
+                    <app-client-edit-phone-form
+                        *ngIf="isShowEditPhoneForm"
+                        [clientId]="client.id"
+                        (closeForm)="togglePhoneForm()"
+                    ></app-client-edit-phone-form>
+                </div>
+            </div>
+
+            <p-table [value]="client.transactions">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Дата платежа</th>
+                        <th>Контрагент</th>
+                        <th>Сумма</th>
+                        <th>Тип</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-client>
+                    <tr>
+                        <td>
+                            {{
+                                client.paymentDate | amDateFormat : "DD.MM.YYYY"
+                            }}
+                        </td>
+                        <td>{{ client.counterparty }}</td>
+                        <td>{{ client.amount | number }}</td>
+                        <td>
+                            <ng-container [ngSwitch]="client.type">
+                                <ng-container
+                                    *ngSwitchCase="transactionType.incoming"
+                                    >Входящий</ng-container
+                                >
+
+                                <ng-container
+                                    *ngSwitchCase="transactionType.outcoming"
+                                    >Исходящий</ng-container
+                                >
+                            </ng-container>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-card>
+    </div>
+</section>
