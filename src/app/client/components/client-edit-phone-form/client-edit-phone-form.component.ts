@@ -3,7 +3,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     EventEmitter,
-    Input,
     OnDestroy,
     OnInit,
     Output,
@@ -19,12 +18,12 @@ import { ClientStateService } from '../../services/client-state.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientEditPhoneFormComponent implements OnInit, OnDestroy {
-    @Input() clientId: number;
     @Output() closeForm: EventEmitter<boolean> = new EventEmitter();
 
-    subscription: Subscription;
+    subscription: Subscription = new Subscription();
 
     phone: string;
+    clientId: number;
 
     constructor(
         private confirmationService: ConfirmationService,
@@ -33,12 +32,18 @@ export class ClientEditPhoneFormComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.subscription = this.clientStateService
-            .getPhone()
-            .subscribe((phone) => {
+        this.subscription.add(
+            this.clientStateService.getProperty('phone').subscribe((phone) => {
                 this.phone = phone;
-                this.changeDetectorRef.detectChanges()
-            });
+                this.changeDetectorRef.detectChanges();
+            })
+        );
+        this.subscription.add(
+            this.clientStateService.getProperty('id').subscribe((clientId) => {
+                this.clientId = clientId;
+                this.changeDetectorRef.detectChanges();
+            })
+        );
     }
 
     ngOnDestroy(): void {

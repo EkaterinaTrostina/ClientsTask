@@ -31,7 +31,7 @@ export class ClientStateService extends StateService<Client>{
             });
     }
 
-    getPhone(): Observable<string> {
-        return this.select(state => state?.phone);
+    getProperty<K extends keyof Client>(key: K): Observable<Client[K]> {
+        return this.select(state => state[key]);
     }
 }

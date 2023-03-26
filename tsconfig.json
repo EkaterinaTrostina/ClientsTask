@@ -20,6 +20,8 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",

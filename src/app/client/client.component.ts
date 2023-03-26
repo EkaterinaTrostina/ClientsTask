@@ -8,7 +8,6 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Client } from '../shared/models/client';
-import { TransactionType } from '../shared/models/transaction-type';
 import { ClientStateService } from './services/client-state.service';
 
 @Component({
@@ -20,7 +19,6 @@ import { ClientStateService } from './services/client-state.service';
 export class ClientComponent implements OnInit, OnDestroy {
     client: Client;
     isShowEditPhoneForm = false;
-    transactionType = TransactionType;
     subscription: Subscription;
 
     constructor(

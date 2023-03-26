@@ -5,9 +5,10 @@ import { ClientRoutingModule } from './client-routing.module';
 import { ClientComponent } from './client.component';
 import { SharedModule } from '../shared/shared.module';
 import { ClientEditPhoneFormComponent } from './components/client-edit-phone-form/client-edit-phone-form.component';
+import { ClientTransactionsComponent } from './components/client-transactions/client-transactions.component';
 
 @NgModule({
-    declarations: [ClientComponent, ClientEditPhoneFormComponent],
+    declarations: [ClientComponent, ClientEditPhoneFormComponent, ClientTransactionsComponent],
     imports: [CommonModule, ClientRoutingModule, SharedModule],
 })
 export class ClientModule {}
