@@ -29,7 +29,7 @@ export class ClientsComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.subscription.add(
-            this.clientsService.clients.subscribe((clients) => {
+            this.clientsService.state.subscribe((clients) => {
                 this.clients = clients;
                 this.changeDetectorRef.detectChanges();
             })

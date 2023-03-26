@@ -10,13 +10,11 @@ const initialState: Client = null!;
     providedIn: 'root',
 })
 export class ClientStateService extends StateService<Client>{
-    client: Observable<Client> = this.state;
-
     constructor(private clientService: ClientService) {
         super(initialState);
     }
 
-    getClient(clientId: number) {
+    init(clientId: number) {
         this.clientService.getClient(clientId).subscribe((client) => {
             this.setNewState(client);
         });
@@ -33,5 +31,9 @@ export class ClientStateService extends StateService<Client>{
 
     getProperty<K extends keyof Client>(key: K): Observable<Client[K]> {
         return this.select(state => state[key]);
+    }
+
+    clearClient(){
+        this.setNewState(null!)
     }
 }

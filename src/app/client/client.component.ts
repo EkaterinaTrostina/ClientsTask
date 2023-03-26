@@ -30,9 +30,9 @@ export class ClientComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         const clientId = this.route.snapshot.params['id'];
 
-        this.clientStateService.getClient(clientId);
+        this.clientStateService.init(clientId);
 
-        this.subscription = this.clientStateService.client.subscribe(
+        this.subscription = this.clientStateService.state.subscribe(
             (client) => {
                 this.client = client;
                 this.changeDetectorRef.detectChanges();
@@ -41,6 +41,7 @@ export class ClientComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        this.clientStateService.clearClient();
         this.subscription.unsubscribe();
     }
 

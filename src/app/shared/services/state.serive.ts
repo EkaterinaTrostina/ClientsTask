@@ -3,13 +3,11 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 
 export class StateService<T> {
     private state$: BehaviorSubject<T>;
-
-    protected get state(): Observable<T> {
-        return this.state$.asObservable();
-    }
+    state: Observable<T>
 
     constructor(initialState: T) {
         this.state$ = new BehaviorSubject<T>(initialState);
+        this.state = this.state$.asObservable();
     }
 
     protected select<K>(mapFn: (state: T) => K): Observable<K> {

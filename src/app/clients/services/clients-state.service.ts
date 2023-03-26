@@ -10,14 +10,14 @@ const initialState: ShortClient[] = [];
     providedIn: 'root',
 })
 export class ClientsStateService extends StateService<ShortClient[]> {
-    clients: Observable<ShortClient[]> = this.state;
-
     constructor(private clientsService: ClientsService) {
-        super(initialState)
-        this.load();
+        super(initialState);
+        this.init();
     }
 
-    load() {
-        this.clientsService.getClients().subscribe(clients => this.setNewState(clients))
+    private init() {
+        this.clientsService
+            .getClients()
+            .subscribe((clients) => this.setNewState(clients));
     }
 }
