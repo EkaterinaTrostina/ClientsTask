@@ -1,6 +1,6 @@
 # Hosting
 Для хостинка используется [firebase](https://firebase.google.com/).
-Проект можно посмотреть по [ссылке](https://clientstest-af936.firebaseapp.com/client/1)
+Проект можно посмотреть по [ссылке](https://clientstest-af936.firebaseapp.com)
 
 # ClientsTask
 
