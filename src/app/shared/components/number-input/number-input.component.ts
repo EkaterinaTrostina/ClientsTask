@@ -1,7 +1,7 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import {
     ControlValueAccessor,
-    FormControl,
+    UntypedFormControl,
     NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 
@@ -24,7 +24,7 @@ export class NumberInputComponent implements ControlValueAccessor {
     @Input() currency = 'USD';
     @Input() allowEmpty = true;
 
-    inputControl = new FormControl();
+    inputControl = new UntypedFormControl();
 
     onChange = (value: any) => {};
     onTouched = (value: any) => {};

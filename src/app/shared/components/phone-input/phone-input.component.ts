@@ -1,7 +1,7 @@
 import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
 import {
     ControlValueAccessor,
-    FormControl,
+    UntypedFormControl,
     NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -28,7 +28,7 @@ export class PhoneInputComponent
     onChange = (value: any) => {};
     onTouched = (value: any) => {};
 
-    inputControl = new FormControl();
+    inputControl = new UntypedFormControl();
     subscription: Subscription;
 
     ngOnInit(): void {
