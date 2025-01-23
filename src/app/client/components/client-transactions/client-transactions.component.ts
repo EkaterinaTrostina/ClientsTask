@@ -15,6 +15,7 @@ import { ClientStateService } from '../../services/client-state.service';
     templateUrl: './client-transactions.component.html',
     styleUrls: ['./client-transactions.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ClientTransactionsComponent implements OnInit, OnDestroy {
     transactions: ClientTransaction[];

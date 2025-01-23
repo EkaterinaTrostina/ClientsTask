@@ -15,6 +15,7 @@ import { ClientsStateService } from './services/clients-state.service';
     templateUrl: './clients.component.html',
     styleUrls: ['./clients.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ClientsComponent implements OnInit, OnDestroy {
     clients: ShortClient[];

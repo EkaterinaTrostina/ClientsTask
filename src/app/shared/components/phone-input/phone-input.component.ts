@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
             multi: true,
         },
     ],
+    standalone: false
 })
 export class PhoneInputComponent
     implements ControlValueAccessor, OnInit, OnDestroy

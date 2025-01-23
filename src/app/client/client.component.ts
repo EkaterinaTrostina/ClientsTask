@@ -15,6 +15,7 @@ import { ClientStateService } from './services/client-state.service';
     templateUrl: './client.component.html',
     styleUrls: ['./client.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ClientComponent implements OnInit, OnDestroy {
     client: Client;

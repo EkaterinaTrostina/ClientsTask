@@ -16,6 +16,7 @@ import { ClientStateService } from '../../services/client-state.service';
     templateUrl: './client-edit-phone-form.component.html',
     styleUrls: ['./client-edit-phone-form.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ClientEditPhoneFormComponent implements OnInit, OnDestroy {
     @Output() closeForm: EventEmitter<boolean> = new EventEmitter();

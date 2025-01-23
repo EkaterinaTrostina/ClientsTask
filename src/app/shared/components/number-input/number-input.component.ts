@@ -16,6 +16,7 @@ import {
             multi: true,
         },
     ],
+    standalone: false
 })
 export class NumberInputComponent implements ControlValueAccessor {
     @Input() minFractionDigits = 0;
