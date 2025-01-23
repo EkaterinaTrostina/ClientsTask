@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { delay, of } from 'rxjs';
-import {
-    HttpInterceptor,
-    HttpHandler,
-    HttpRequest,
-    HttpResponse,
-} from '@angular/common/http';
+import { HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
 
 import { mockData } from 'src/assets/mocks';
 
