@@ -1,6 +1,6 @@
 <section class="clients">
     <div class="container">
-        <p-table [value]="clients" [rowHover]="true" (onRowSelect)="onRowSelect($event)" selectionMode="single">
+        <p-table [value]="clients$ | async" [rowHover]="true" (onRowSelect)="onRowSelect($event)" selectionMode="single">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Наименование организации</th>

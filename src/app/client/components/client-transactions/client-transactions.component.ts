@@ -1,42 +1,24 @@
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    OnDestroy,
-    OnInit,
-} from '@angular/core';
-import { Subscription } from 'rxjs';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ClientTransaction } from 'src/app/shared/models/client-transaction';
 import { TransactionType } from 'src/app/shared/models/transaction-type';
 import { ClientStateService } from '../../services/client-state.service';
+import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { MomentModule } from 'ngx-moment';
 
 @Component({
     selector: 'app-client-transactions',
     templateUrl: './client-transactions.component.html',
     styleUrls: ['./client-transactions.component.scss'],
+    imports: [CommonModule, TableModule, MomentModule],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ClientTransactionsComponent implements OnInit, OnDestroy {
-    transactions: ClientTransaction[];
-    subscription: Subscription;
+export class ClientTransactionsComponent {
+    public transactions$: Observable<ClientTransaction[]> =
+        this.clientStateService.getProperty('transactions');
 
-    transactionType = TransactionType;
+    public transactionType = TransactionType;
 
-    constructor(
-        private clientStateService: ClientStateService,
-        private changeDetectorRef: ChangeDetectorRef
-    ) {}
-
-    ngOnInit(): void {
-        this.subscription = this.clientStateService
-            .getProperty('transactions')
-            .subscribe((transactions) => {
-                this.transactions = transactions;
-                this.changeDetectorRef.detectChanges();
-            });
-    }
-
-    ngOnDestroy(): void {
-        this.subscription.unsubscribe();
-    }
+    constructor(private clientStateService: ClientStateService) {}
 }
