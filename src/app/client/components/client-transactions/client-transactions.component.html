@@ -1,4 +1,4 @@
-<p-table [value]="transactions">
+<p-table [value]="transactions$ | async">
     <ng-template pTemplate="header">
         <tr>
             <th>Дата платежа</th>
@@ -15,15 +15,10 @@
             <td>{{ transaction.counterparty }}</td>
             <td>{{ transaction.amount | number }}</td>
             <td>
-                <ng-container [ngSwitch]="transaction.type">
-                    <ng-container *ngSwitchCase="transactionType.incoming"
-                        >Входящий</ng-container
-                    >
-
-                    <ng-container *ngSwitchCase="transactionType.outcoming"
-                        >Исходящий</ng-container
-                    >
-                </ng-container>
+                @switch (transaction.type) {
+                    @case (transactionType.Incoming) {Входящий}
+                    @case (transactionType.Outcoming) {Исходящий}
+                }
             </td>
         </tr>
     </ng-template>

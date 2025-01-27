@@ -1,63 +1,46 @@
-import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
     ControlValueAccessor,
-    UntypedFormControl,
-    NG_VALUE_ACCESSOR,
+    ReactiveFormsModule,
+    NgControl,
+    FormControl,
 } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
     selector: 'app-phone-input',
     templateUrl: './phone-input.component.html',
     styleUrls: ['./phone-input.component.scss'],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => PhoneInputComponent),
-            multi: true,
-        },
-    ],
-    standalone: false
+    imports: [InputMaskModule, ReactiveFormsModule],
 })
-export class PhoneInputComponent
-    implements ControlValueAccessor, OnInit, OnDestroy
-{
-    @Input() mask = '+7 (999) 999 99 99';
-    @Input() placeholder = '+7 (999) 999 99 99';
-    @Input() required = false;
+export class PhoneInputComponent implements ControlValueAccessor {
+    @Input() public mask = '+7 (999) 999 99 99';
+    @Input() public placeholder = '+7 (999) 999 99 99';
+    @Input() public required = false;
 
-    onChange = (value: any) => {};
-    onTouched = (value: any) => {};
+    protected onChange: (value: any) => void;
+    protected onTouched: (value: any) => void;
 
-    inputControl = new UntypedFormControl();
-    subscription: Subscription;
-
-    ngOnInit(): void {
-        this.subscription = this.inputControl.valueChanges.subscribe((cur) => {
-            this.change(cur);
-        });
+    public get control(): FormControl {
+        return this.ngControl?.control as FormControl;
+    }
+    
+    constructor(protected ngControl: NgControl) {
+        ngControl.valueAccessor = this;
     }
 
-    ngOnDestroy(): void {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
-
-    registerOnChange(fn: any) {
+    public registerOnChange(fn: any): void {
         this.onChange = fn;
     }
 
-    registerOnTouched(fn: any) {
+    public registerOnTouched(fn: any): void {
         this.onTouched = fn;
     }
 
-    change(value: string | null) {
+    public change(value: string | null): void {
         this.onChange(value);
         this.onTouched(value);
     }
 
-    writeValue(value: string): void {
-        this.inputControl.setValue(value, { emitEvent: false, onlySelf: true });
-    }
+    public writeValue(value: string): void {}
 }

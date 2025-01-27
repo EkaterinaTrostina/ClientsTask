@@ -1,8 +1,6 @@
-<section>
-    <div class="container flex justify-content-center">
-        <p-progressSpinner *ngIf="!client"></p-progressSpinner>
+<section class="container flex justify-content-center">
+    @if(client$ | async; as client){
         <p-card
-            *ngIf="client"
             class="mb-4 block"
             [header]="client.name"
             [subheader]="'ИНН: ' + client.inn"
@@ -11,11 +9,7 @@
             <div class="flex flex-column gap-3 mb-4">
                 <div class="flex gap-2 align-items-center">
                     <span>Дата открытия счета:</span>
-                    <span>
-                        {{
-                            client.openAt | amDateFormat : "DD MMMM YYYY"
-                        }}</span
-                    >
+                    <span>{{ client.openAt | amDateFormat : "DD MMMM YYYY" }}</span>
                 </div>
                 <div class="flex gap-2 align-items-center">
                     <span>Баланс:</span>
@@ -24,7 +18,11 @@
                 <div class="flex gap-2 align-items-center">
                     <span>Телефон:</span>
 
-                    <ng-container *ngIf="!isShowEditPhoneForm">
+                    @if(isShowEditPhoneForm) {
+                        <app-client-edit-phone-form
+                            (closeForm)="togglePhoneForm()"
+                        ></app-client-edit-phone-form>
+                    }@else {
                         <span>{{ client.phone }}</span>
                         <button
                             pButton
@@ -34,16 +32,13 @@
                             class="client__info-btn p-button-rounded p-button-text"
                             (click)="togglePhoneForm()"
                         ></button>
-                    </ng-container>
-
-                    <app-client-edit-phone-form
-                        *ngIf="isShowEditPhoneForm"
-                        (closeForm)="togglePhoneForm()"
-                    ></app-client-edit-phone-form>
+                    }
                 </div>
             </div>
 
             <app-client-transactions></app-client-transactions>
         </p-card>
-    </div>
+    }@else {
+        <p-progress-spinner />
+    }
 </section>

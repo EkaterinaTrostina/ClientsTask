@@ -8,11 +8,11 @@ import { mockData } from 'src/assets/mocks';
     providedIn: 'root',
 })
 export class MockInterceptor implements HttpInterceptor {
-    intercept(req: HttpRequest<any>, next: HttpHandler): any {
+    public intercept(req: HttpRequest<any>, next: HttpHandler): any {
         return this.handleRequests(req, next);
     }
 
-    handleRequests(req: HttpRequest<any>, next: HttpHandler) {
+    private handleRequests(req: HttpRequest<any>, next: HttpHandler) {
         const { url, body, method } = req;
         switch (method) {
             case 'GET':

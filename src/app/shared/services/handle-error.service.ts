@@ -6,7 +6,7 @@ import { throwError } from 'rxjs';
     providedIn: 'root',
 })
 export class HandleErrorService {
-    handleError(error: HttpErrorResponse) {
+    public handleError(error: HttpErrorResponse) {
         alert(error.message);
         return throwError(() => new Error(error.message));
     }

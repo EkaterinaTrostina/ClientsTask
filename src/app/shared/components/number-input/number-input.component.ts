@@ -1,22 +1,17 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
     ControlValueAccessor,
-    UntypedFormControl,
-    NG_VALUE_ACCESSOR,
+    ReactiveFormsModule,
+    FormControl,
+    NgControl,
 } from '@angular/forms';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     selector: 'app-number-input',
     templateUrl: './number-input.component.html',
     styleUrls: ['./number-input.component.scss'],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => NumberInputComponent),
-            multi: true,
-        },
-    ],
-    standalone: false
+    imports: [InputNumberModule, ReactiveFormsModule],
 })
 export class NumberInputComponent implements ControlValueAccessor {
     @Input() minFractionDigits = 0;
@@ -25,26 +20,29 @@ export class NumberInputComponent implements ControlValueAccessor {
     @Input() currency = 'USD';
     @Input() allowEmpty = true;
 
-    inputControl = new UntypedFormControl();
+    protected onChange: (value: any) => void;
+    protected onTouched: (value: any) => void;
 
-    onChange = (value: any) => {};
-    onTouched = (value: any) => {};
+    public get control(): FormControl {
+        return this.ngControl?.control as FormControl;
+    }
+    
+    constructor(protected ngControl: NgControl) {
+        ngControl.valueAccessor = this;
+    }
 
-    registerOnChange(fn: any) {
+    public registerOnChange(fn: any): void {
         this.onChange = fn;
     }
 
-    registerOnTouched(fn: any) {
+    public registerOnTouched(fn: any): void {
         this.onTouched = fn;
     }
 
-    change(value: number | null) {
-        console.dir(value);
+    public change(value: number | string | null): void {
         this.onChange(value);
         this.onTouched(value);
     }
 
-    writeValue(value: number): void {
-        this.inputControl.setValue(value);
-    }
+    public writeValue(value: number): void {}
 }

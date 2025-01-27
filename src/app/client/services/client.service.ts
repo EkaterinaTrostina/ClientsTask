@@ -14,13 +14,13 @@ export class ClientService {
         private handleErrorService: HandleErrorService
     ) {}
 
-    changeClientPhone(clientId: number, phone: string): Observable<boolean> {
+    public changeClientPhone(clientId: number, phone: string): Observable<boolean> {
         return this.http
             .post<boolean>(`/${clientId}/changephone`, { phone })
             .pipe(catchError(this.handleErrorService.handleError));
     }
 
-    getClient(clientId: number): Observable<Client> {
+    public getClient(clientId: number): Observable<Client> {
         return this.http
             .get<Client>('/clients/' + clientId)
             .pipe(catchError(this.handleErrorService.handleError));

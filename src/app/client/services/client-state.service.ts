@@ -14,13 +14,13 @@ export class ClientStateService extends StateService<Client>{
         super(initialState);
     }
 
-    init(clientId: number) {
+    public init(clientId: number): void {
         this.clientService.getClient(clientId).subscribe((client) => {
             this.setNewState(client);
         });
     }
 
-    changeClientPhone(clientId: number, phone: string){
+    public changeClientPhone(clientId: number, phone: string): void {
         this.clientService
             .changeClientPhone(clientId, phone)
             .subscribe((res) => {
@@ -29,11 +29,15 @@ export class ClientStateService extends StateService<Client>{
             });
     }
 
-    getProperty<K extends keyof Client>(key: K): Observable<Client[K]> {
+    public getProperty<K extends keyof Client>(key: K): Observable<Client[K]> {
         return this.select(state => state[key]);
     }
 
-    clearClient(){
+    public getSnapshotProperty<K extends keyof Client>(key: K): Client[K] {
+        return this.selectSnapshot(key);
+    }
+
+    public clearClient(){
         this.setNewState(null!)
     }
 }

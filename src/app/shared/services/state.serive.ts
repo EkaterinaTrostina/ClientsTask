@@ -3,7 +3,7 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 
 export class StateService<T> {
     private state$: BehaviorSubject<T>;
-    state: Observable<T>
+    public state: Observable<T>
 
     constructor(initialState: T) {
         this.state$ = new BehaviorSubject<T>(initialState);
