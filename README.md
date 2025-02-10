@@ -1,9 +1,8 @@
 # Hosting
-Для хостинка используется [firebase](https://firebase.google.com/).
-Проект можно посмотреть по [ссылке](https://clientstest-af936.firebaseapp.com)
+[Firebase](https://firebase.google.com/) is used for hosting.
+The project can be viewed at the [link]https://clientstest-af936.firebaseapp.com)
 
 # ClientsTask
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.4.
 
 ## Development server
